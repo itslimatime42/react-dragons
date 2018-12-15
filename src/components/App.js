@@ -55,8 +55,8 @@ class App extends Component {
     .then(this.getDragons)
   }
 
-  filterDragons = () => {
-    return this.homeDragons().filter(dragon => {
+  filterDragons = (dragons) => {
+    return dragons.filter(dragon => {
       return dragon.name.toLowerCase().startsWith(this.state.search);
     })
   }
@@ -75,7 +75,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Home dragons={this.filterDragons()} toggleAtWar={this.toggleAtWar} nameSearch={this.handleSearchChange} />
+        <Home dragons={this.filterDragons(this.homeDragons())} toggleAtWar={this.toggleAtWar} nameSearch={this.handleSearchChange} />
         <War dragons={this.warDragons()} toggleAtWar={this.toggleAtWar} />
       </div>
     );
