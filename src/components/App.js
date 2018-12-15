@@ -9,6 +9,7 @@ class App extends Component {
     super()
     this.state = {
       dragons: [],
+      search: ''
     }
   }
 
@@ -54,6 +55,19 @@ class App extends Component {
     .then(this.getDragons)
   }
 
+  filterDragons = () => {
+    return this.homeDragons().filter(dragon => {
+      return dragon.name.toLowerCase().startsWith(this.state.search);
+    })
+  }
+
+  handleSearchChange = (searchValue) => {
+    console.log(searchValue)
+    this.setState({
+      search: searchValue
+    })
+  }
+
   componentDidMount = () => {
     this.getDragons()
   }
@@ -61,7 +75,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Home dragons={this.homeDragons()} toggleAtWar={this.toggleAtWar} />
+        <Home dragons={this.filterDragons()} toggleAtWar={this.toggleAtWar} nameSearch={this.handleSearchChange} />
         <War dragons={this.warDragons()} toggleAtWar={this.toggleAtWar} />
       </div>
     );
